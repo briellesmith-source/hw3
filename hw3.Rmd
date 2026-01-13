@@ -1,0 +1,114 @@
+---
+title: "Hw3"
+output: html_notebook
+---
+
+```{r}
+library(readr)      # for read_csv()
+library(dplyr)      # for data cleaning
+```
+
+## Maternal Mortality Ratio
+
+```{r}
+# Reads raw maternal mortality CSV
+mat <- read_csv("project_data_raw/Maternal mortality ratio.csv")
+
+# Keeps only Country, Value, Region columns
+mat <- mat %>%
+  select(name, 'deaths/100' , ranking)
+
+# Verifies structure
+str(mat)
+```
+```{r}
+# Renames columns using dplyr
+library(dplyr) # for rename()
+
+mat <- mat %>%
+  rename(
+    Country = name,   #renames column 1 to the Country
+    'Maternal Mortality Ratio'='deaths/100',   # renames column 2 to the measured Value
+    Region = ranking)    # renames column 3 to the Region
+```
+
+```{r}
+# Saves cleaned file as RDS
+saveRDS(mat, "maternal_mortality.rds")
+
+# Saves cleaned file as CSV
+write_csv(mat, "maternal_mortality.csv")
+```
+
+## Infant Mortality Rate
+
+```{r}
+# Reads raw infant mortality CSV
+inf <- read_csv("project_data_raw/infant mortality rate.csv")
+
+# Keeps only needed columns
+inf <- inf %>%
+  select(name,`deaths/1`, ranking)
+
+# Verifies structure
+str(inf)
+```
+
+```{r}
+# Renames columns using dplyr
+library(dplyr) # for rename()
+
+inf <- inf %>%
+  rename(
+    Country = name,   #renames column 1 to the Country
+    'Infant Mortality Rate'='deaths/1',   # renames column 2 to the measured Value
+    Region = ranking)    # renames column 3 to the Region
+```
+
+```{r}
+# Saves cleaned file as RDS
+saveRDS(inf, "infant_mortality.rds")
+
+# Saves cleaned file as CSV
+write_csv(inf, "infant_mortality.csv")
+```
+
+
+## Life Expectancy at Birth
+
+```{r}
+# Reads raw life expectancy CSV
+life <- read_csv("project_data_raw/Life expectancy at birth.csv")
+
+# Keeps only needed columns
+life <- life %>%
+  select(name,years, region)
+
+# Verifies structure
+str(inf)
+```
+```{r}
+# Renames columns using dplyr
+library(dplyr) # for rename()
+
+life <- life %>%
+  rename(
+    Country = name,   #renames column 1 to the Country
+    'Life Expectancy at birth'= years,   # renames column 2 to the measured Value
+    Region = region)    # renames column 3 to the Region
+```
+
+```{r}
+# Saves cleaned file as RDS
+saveRDS(inf, "life_expectancy.rds")
+
+# Saves cleaned file as CSV
+write_csv(inf, "life_expectancy.csv")
+```
+
+
+
+
+
+
+
